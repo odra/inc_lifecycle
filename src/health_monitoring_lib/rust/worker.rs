@@ -10,7 +10,7 @@
 //
 // SPDX-License-Identifier: Apache-2.0
 // *******************************************************************************
-use crate::common::{MonitorEvalHandle, MonitorEvaluator};
+use crate::common::{MonitorEvalHandle, MonitorEvaluationError, MonitorEvaluator};
 use crate::log::{info, warn};
 use crate::supervisor_api_client::SupervisorAPIClient;
 use containers::fixed_capacity::FixedCapacityVec;
@@ -51,8 +51,17 @@ impl<T: SupervisorAPIClient> MonitoringLogic<T> {
         for monitor in self.monitors.iter() {
             monitor.evaluate(&mut |monitor_tag, error| {
                 has_any_error = true;
-                // TODO: monitor type should be mentioned.
-                warn!("Monitor with tag {:?} reported error: {:?}.", monitor_tag, error);
+
+                match error {
+                    MonitorEvaluationError::Deadline(deadline_evaluation_error) => {
+                        warn!(
+                            "Deadline monitor with tag {:?} reported error: {:?}.",
+                            monitor_tag, deadline_evaluation_error
+                        )
+                    },
+                    MonitorEvaluationError::Heartbeat => unimplemented!(),
+                    MonitorEvaluationError::Logic => unimplemented!(),
+                }
             });
         }
 
@@ -148,6 +157,7 @@ impl From<Checks> for u32 {
 #[score_testing_macros::test_mod_with_log]
 #[cfg(test)]
 mod tests {
+    use crate::common::Monitor;
     use crate::deadline::{DeadlineMonitor, DeadlineMonitorBuilder};
     use crate::protected_memory::ProtectedMemoryAllocator;
     use crate::supervisor_api_client::SupervisorAPIClient;
