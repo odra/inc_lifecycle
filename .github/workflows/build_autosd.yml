@@ -13,6 +13,7 @@
 
 name: AutoSD Build
 on:
+  workflow_dispatch: 
   pull_request_target:
     types: [opened, reopened, synchronize]
   merge_group:
