@@ -82,8 +82,19 @@ build:ferrocene-coverage --@rules_rust//rust/settings:extra_exec_rustc_flag=-Cli
 build:ferrocene-coverage --@rules_rust//rust/settings:extra_exec_rustc_flag=-Ccodegen-units=1
 build:ferrocene-coverage --@rules_rust//rust/settings:extra_exec_rustc_flag=-Cdebuginfo=2
 test:ferrocene-coverage --run_under=@score_tooling//coverage:llvm_profile_wrapper
-
 build:ferrocene-coverage --remote_download_all
+
+# autosd
+build:x86_64-autosd --config=toolchain_common
+build:x86_64-autosd --force_pic
+build:x86_64-autosd --platforms=@score_bazel_platforms//:x86_64-linux-autosd10
+build:x86_64-autosd --extra_toolchains=@score_autosd10_x86_64_toolchain//:x86_64-linux-autosd10
+
+build:aarch64-autosd --config=toolchain_common
+build:aarch64-autosd --force_pic
+build:aarch64-autosd --platforms=@score_bazel_platforms//:aarch64-linux-autosd10
+build:aarch64-autosd --extra_toolchains=@score_autosd10_aarch64_toolchain//:aarch64-linux-autosd10
+
 
 # to be removed
 build:build_qnx8 --config=arm64-qnx
