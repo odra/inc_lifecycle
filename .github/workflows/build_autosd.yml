@@ -33,5 +33,6 @@ jobs:
         config: ['x86_64-qnx']
     with:
       bazel-target: '//src/... //examples/...'
+      bazel-test-target: '//src/... //examples/...'
       bazel-config: ${{ matrix.config }}
       bazel-disk-cache: ${{ github.workflow }}-${{ github.job }}-${{ matrix.config }} 
