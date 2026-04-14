@@ -30,7 +30,7 @@ jobs:
       pull-requests: read
     strategy:
       matrix:
-        config: ['x86_64-qnx']
+        config: ['x86_64-autosd']
     with:
       bazel-target: '//src/... //examples/...'
       bazel-config: ${{ matrix.config }}
