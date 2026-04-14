@@ -91,6 +91,12 @@ build:x86_64-autosd--force_pic
 build:x86_64-autosd--extra_toolchains=@autosd_10_gcc_repo//:gcc_toolchain_linux_x86_64
 build:x86_64-autosd--extra_toolchains=@rules_rpm//toolchain:linux_x86_64
 
+build:arm64-autosd --config=toolchain_common
+build:arm64-autosd--platforms=@score_bazel_platforms//:x86_64-linux
+build:arm64-autosd--force_pic
+build:arm64-autosd--extra_toolchains=@autosd_10_gcc_repo//:gcc_toolchain_linux_x86_64
+build:arm64-autosd--extra_toolchains=@rules_rpm//toolchain:linux_x86_64
+
 # to be removed
 build:build_qnx8 --config=arm64-qnx
 
