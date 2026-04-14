@@ -55,28 +55,28 @@ gcc.toolchain(
     use_default_package = True,
     version = "12.2.0",
 )
+# autosd
 gcc.toolchain(
-    name = "score_qcc_x86_64_toolchain",
-    sdp_version = "8.0.0",
+    name = "score_autosd_10x_86_64_toolchain",
+    runtime_ecosystem = "autosd10",
     target_cpu = "x86_64",
-    target_os = "qnx",
+    target_os = "linux",
     use_default_package = True,
-    version = "12.2.0",
 )
 gcc.toolchain(
-    name = "score_qcc_aarch64_toolchain",
-    sdp_version = "8.0.0",
+    name = "score_autosd_10_aarch64_toolchain",
+    runtime_ecosystem = "autosd10",
     target_cpu = "aarch64",
-    target_os = "qnx",
+    target_os = "linux",
     use_default_package = True,
-    version = "12.2.0",
 )
 use_repo(
     gcc,
     "score_gcc_aarch64_toolchain",
     "score_gcc_x86_64_toolchain",
     "score_qcc_aarch64_toolchain",
-    "score_qcc_x86_64_toolchain",
+    "score_autosd_10_x86_64_toolchain",
+    "score_autosd_10_aarch64_toolchain",
 )
 
 ## Rust Toolchain
